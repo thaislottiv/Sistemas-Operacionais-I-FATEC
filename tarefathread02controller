@@ -1,0 +1,28 @@
+tarefa02Thread02.controller;
+
+public class ThreadSomaMatriz extends Thread {
+
+	int [][] m;
+	int x;
+	 
+	public ThreadSomaMatriz(int[][] m, int x) {
+		this.m = m;
+		this.x = x;
+	}
+
+	@Override
+	public void run() {
+		somaMatriz(m, x);
+	}
+
+	private void somaMatriz(int[][] m, int x) {
+		int somaMatriz = 0;
+		
+		for (int y = 0; y < 5; y++) {
+			somaMatriz = somaMatriz + m[x][y];
+		}
+		
+		System.out.println("Na ThreadId#" + getId() + " a soma da linha " + (x + 1) + " da matriz é igual a " + somaMatriz);
+	}
+	
+}
