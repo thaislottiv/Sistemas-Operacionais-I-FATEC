@@ -1,0 +1,33 @@
+package tarefa02Thread02.view;
+
+import tarefa02Thread02.controller.ThreadSomaMatriz;
+
+public class Principal {
+	public static void main(String[] args) {
+    int x, y;
+		int[][] m = new int[3][5];
+		
+		System.out.println("A matriz:");
+		
+		for (x = 0; x < 3; x++) {
+			for (y = 0; y < 5; y++) {
+				m[x][coluna] = getRandomNumber();
+				System.out.print(m[x][y] + "\t");
+			}
+			System.out.println();
+		}
+		System.out.println();
+
+		for (int x = 0; x < 3; x++) {
+			Thread threadSomaMatriz = new ThreadSomaMatriz(m, x);
+			threadSomaMatriz.start();
+		}
+
+	}
+
+	public static int getRandomNumber() {
+		return (int) ((Math.random() * (100 - 1) + 1));
+	}
+
+}
+
