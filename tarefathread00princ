@@ -1,6 +1,6 @@
 package tarefathread00.view;
 
-import tarefa0thread00.controller.ThreadVetor;
+import tarefa09thread00.controller.ThreadVetor;
 
 public class Principal {
 
