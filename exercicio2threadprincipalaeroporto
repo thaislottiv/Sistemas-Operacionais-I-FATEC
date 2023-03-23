@@ -1,0 +1,17 @@
+package exercicio2ThreadSemaphoreAeroporto.view;
+
+import java.util.concurrent.Semaphore;
+import exercicio2ThreadSemaphoreAeroporto.controller.ThreadAeroporto;
+
+public class Principal {
+	public static void main(String[] args) {
+		int permissaoPistaSul = 1;
+		Semaphore semaforoPistaSul = new Semaphore(permissaoPistaSul);
+		int permissaoPistaNorte = 1;
+		Semaphore semaforoPistaNorte = new Semaphore(permissaoPistaNorte);
+		for (int identificAviao = 1; identificAviao <= 12; identificAviao++) {
+			ThreadAeroporto threadAeroporto = new ThreadAeroporto(identificAviao, semaforoPistaSul, semaforoPistaNorte);
+			threadAeroporto.start();
+		}
+	}
+}
