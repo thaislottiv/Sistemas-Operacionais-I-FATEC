@@ -1,0 +1,90 @@
+package exercicio2ThreadSemaphoreAeroporto.view;
+import java.util.Random;
+import java.util.concurrent.Semaphore;
+
+public class ThreadAeroporto extends Thread {
+
+	private int identificAviao;
+	private Semaphore semaforoPistaSul;
+	private Semaphore semaforoPistaNorte;
+	private String pista = "";
+  
+	public ThreadAeroporto(int identificAviao, Semaphore semaforoPistaSul, Semaphore semaforoPistaNorte) {
+		this.identificAviao = identificAviao;
+		this.semaforoPistaSul = semaforoPistaSul;
+		this.semaforoPistaNorte = semaforoPistaNorte;
+	}
+
+	@Override
+	public void run() {
+		try {
+			if (identificAviao % 2 == 0) {
+				System.out.println ("A aeronave " + identificAviao + " acaba de começar a decolagem na pista Sul!");
+				pista  = "Pista Sul";
+				semaforoPistaSul.acquire();
+				procedimentosDeDecolagem();
+			} else {
+				System.out.println ("A aeronave " + identificAviao + " acaba de começar a decolagem na pista Sul!");
+				pista = "Pista Norte";
+				semaforoPistaNorte.acquire();
+				procedimentosDeDecolagem();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			semaforoPistaSul.release();
+			semaforoPistaNorte.release();
+		}
+	}
+
+	private void procedimentosDeDecolagem() {
+		manobrar();
+		taxiar();
+		decolar();
+		afastardaarea();
+	}
+	private void manobrar() {
+		System.out.println("A aeronave" + identificAviao + "está manobrando na" + pista);
+		int time = getRandomTempo(7000, 3000);
+        try {
+            sleep(time);
+            System.out.println("A aeronave " + identificAviao + " acabou de manobrar na " + pista + " depois de " + (tempo/1000) + " segundos!");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+	}
+	private void taxiar() {
+        System.out.println("A aeronave" + identificAviao + "está taxiando na" + pista);
+		int time = getRandomTempo(10000, 5000);
+        try {
+            sleep(time);
+            System.out.println("A aeronave" + identificAviao + "acabou de taxiar na" + pista + "depois de" + (tempo/1000) + "segundos!");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+	}
+	private void decolar() {
+        System.out.println("A aeronave" + identificAviao + "está decolando na" + pista);
+		int time = getRandomTempo(4000, 1000);
+        try {
+            sleep(time);
+            System.out.println("A aeronave" + identificAviao + "acabou de decolar na" + pista + "depois de" + (tempo/1000) + " segundos!");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+	}
+	private void afastarDaArea() {
+        System.out.println("A aeronave" + identificAviao + "está se afastando da área na" + pista!);
+		int time = getRandomTempo(8000, 3000);
+        try {
+            sleep(time);
+            System.out.println("A aeronave" + idAviao + "acabou de se afastar da área na" + pista + "depois de" + (tempo/1000) + "segundos!" + " A pista está liberada.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+	}
+	public static int getRandomTempo(int max, int min) {
+		Random rd = new Random();
+		return rd.nextInt(max - min + 1) + min;
+	}
+}
